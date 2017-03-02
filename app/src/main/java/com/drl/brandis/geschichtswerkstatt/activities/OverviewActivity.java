@@ -42,6 +42,7 @@ import com.google.android.gms.maps.model.LatLng;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.Calendar;
 
 public class OverviewActivity extends BaseActivity {
 
@@ -189,8 +190,11 @@ public class OverviewActivity extends BaseActivity {
         if (story.loc_name != null)
             locationText.setText(story.loc_name);
 
-        if (story.date.length() > 0)
-            yearText.setText(story.date);
+        if (story.date.length() > 0) {
+                yearText.setText(story.date);
+
+            }
+
 
         if (story.audioFile != null) {
             File file = new File(story.audioFile);
@@ -233,10 +237,10 @@ public class OverviewActivity extends BaseActivity {
     }
 
 
-    @Override
-    public void onConfigurationChanged(Configuration configuration){
-        setupUI(findViewById(R.id.main_layout));
-    }
+        @Override
+        public void onConfigurationChanged(Configuration configuration){
+            setupUI(findViewById(R.id.main_layout));
+        }
 
     public void saveStory() {
 
@@ -374,7 +378,35 @@ public class OverviewActivity extends BaseActivity {
         saveData();
         saveStory();
 
-        if (haveNetworkConnection()){
+        if (story.title.length() < 4){
+            Toast toast = Toast.makeText(getApplicationContext(), "Titel ist zu kurz(mindestens 4 zeichen)", Toast.LENGTH_LONG);
+            toast.setGravity(Gravity.CENTER,0,0);
+            toast.show();
+            titleEdit.requestFocus();
+            InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
+            imm.showSoftInput(titleEdit, InputMethodManager.SHOW_IMPLICIT);
+
+
+            return;
+        }
+
+        if (story.date.length() > 0) {
+
+            if (Integer.parseInt(story.date) > Calendar.getInstance().get(Calendar.YEAR)) {
+                Toast toast = Toast.makeText(getApplicationContext(), "Falsches Jahresangabe", Toast.LENGTH_LONG);
+                toast.setGravity(Gravity.CENTER, 0, 0);
+                toast.show();
+                yearText.requestFocus();
+                InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
+                imm.showSoftInput(yearText, InputMethodManager.SHOW_IMPLICIT);
+
+                return;
+            }
+        }
+
+
+
+                if (haveNetworkConnection()){
             Intent intent = new Intent(getApplicationContext(), UploadActivity.class);
             intent.putExtra("story",this.story);
             startActivity(intent);

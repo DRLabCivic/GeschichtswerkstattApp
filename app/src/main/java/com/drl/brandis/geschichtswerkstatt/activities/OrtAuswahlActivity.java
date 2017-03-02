@@ -2,9 +2,11 @@ package com.drl.brandis.geschichtswerkstatt.activities;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.content.pm.ActivityInfo;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.view.Gravity;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
@@ -12,6 +14,7 @@ import android.view.inputmethod.InputMethodManager;
 import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.drl.brandis.geschichtswerkstatt.R;
 import com.drl.brandis.geschichtswerkstatt.database.Story;
@@ -20,6 +23,8 @@ import com.google.android.gms.common.GooglePlayServicesRepairableException;
 import com.google.android.gms.location.places.Place;
 import com.google.android.gms.location.places.ui.PlacePicker;
 import com.google.android.gms.maps.model.LatLng;
+
+import java.util.Calendar;
 
 public class OrtAuswahlActivity extends BaseActivity {
 
@@ -37,6 +42,10 @@ public class OrtAuswahlActivity extends BaseActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_ort_auswahl);
         mainLayout = (ViewGroup) findViewById(R.id.map_layout);
+
+        //Restrict to portrait on smaller screens
+        if (getResources().getBoolean(R.bool.portrait_only))
+            setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
 
         //Retrieve storydata
         Intent i = getIntent();
@@ -58,9 +67,8 @@ public class OrtAuswahlActivity extends BaseActivity {
 
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
-
-                story.date = s.toString();
-                updateUi();
+                    story.date = s.toString();
+                    updateUi();
 
             }
 
@@ -134,15 +142,24 @@ public class OrtAuswahlActivity extends BaseActivity {
 
         }
 
-        if (story.date.length() > 0){
-                ((CheckBox)findViewById(R.id.check_year)).setChecked(true);
+        if (story.date.length() > 0) {
 
-            //active if date is set to anything
-            saveButton.setAlpha(1.f);
-            saveButton.setClickable(true);
+            if (Integer.parseInt(story.date) > Calendar.getInstance().get(Calendar.YEAR)) {
+                    Toast toast = Toast.makeText(getApplicationContext(), "Falsches Jahresangabe", Toast.LENGTH_LONG);
+                    toast.setGravity(Gravity.CENTER, 0, 0);
+                    toast.show();
+
+
+            } else {
+
+
+                ((CheckBox) findViewById(R.id.check_year)).setChecked(true);
+
+                //active if date is set to anything
+                saveButton.setAlpha(1.f);
+                saveButton.setClickable(true);
+            }
         }
-
-
 
     }
 

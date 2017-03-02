@@ -1,6 +1,7 @@
 package com.drl.brandis.geschichtswerkstatt.activities;
 
 import android.content.Intent;
+import android.content.pm.ActivityInfo;
 import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
@@ -13,8 +14,6 @@ import com.drl.brandis.geschichtswerkstatt.database.StoryDatabase;
 import com.drl.brandis.geschichtswerkstatt.utils.StoryUploader;
 
 import org.json.JSONObject;
-
-import java.util.Date;
 
 import okhttp3.ResponseBody;
 import retrofit2.Call;
@@ -37,6 +36,11 @@ public class UploadActivity extends BaseActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_upload);
+
+        //Restrict to portrait on smaller screens
+        if (getResources().getBoolean(R.bool.portrait_only))
+            setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
+
 
         // hide done layout
         findViewById(R.id.done_layout).setVisibility(View.GONE);

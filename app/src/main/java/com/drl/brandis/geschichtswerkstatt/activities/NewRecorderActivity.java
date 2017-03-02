@@ -2,6 +2,7 @@ package com.drl.brandis.geschichtswerkstatt.activities;
 
 import android.Manifest;
 import android.content.Intent;
+import android.content.pm.ActivityInfo;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.os.CountDownTimer;
@@ -57,6 +58,9 @@ public class NewRecorderActivity extends BaseActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_new_recorder);
 
+        //Restrict to portrait on smaller screens
+        if (getResources().getBoolean(R.bool.portrait_only))
+            setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
 
         if (getIntent().hasExtra("story"))
             story = (Story) getIntent().getSerializableExtra("story");

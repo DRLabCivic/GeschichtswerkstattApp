@@ -3,6 +3,7 @@ package com.drl.brandis.geschichtswerkstatt.activities;
 import android.Manifest;
 import android.app.Activity;
 import android.content.Intent;
+import android.content.pm.ActivityInfo;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.support.v4.app.ActivityCompat;
@@ -44,6 +45,10 @@ public class StoryBeschreibungActivity extends BaseActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_story_beschreibung);
         setupUI(findViewById(R.id.storyEditing));
+
+        //Restrict to portrait on smaller screens
+        if (getResources().getBoolean(R.bool.portrait_only))
+            setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
 
         // request permissions
         if (ContextCompat.checkSelfPermission(this,

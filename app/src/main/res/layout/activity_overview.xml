@@ -52,7 +52,7 @@
             <Button
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
-                android:text="Geschichte übertragen"
+                android:text="Übertragen"
                 android:layout_marginStart="@dimen/small_margin"
 
                 android:onClick="onUploadButtonClicked"
@@ -281,7 +281,7 @@
                                     android:maxLength="4"
                                     android:inputType="number"
                                     android:background="@drawable/rectangle"
-                                    android:hint="Yahr"
+                                    android:hint="Jahr"
 
                                     style="@style/smallTextStyle" />
 
