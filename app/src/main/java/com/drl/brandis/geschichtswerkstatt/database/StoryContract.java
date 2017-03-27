@@ -6,27 +6,27 @@ package com.drl.brandis.geschichtswerkstatt.database;
 
 import android.provider.BaseColumns;
 
-public class StoryContract {
+class StoryContract {
 
-    public static final String DB_NAME = "com.drl.brandis.geschichtswerkstatt.db";
-    public static final int DB_VERSION = 12;
+    static final String DB_NAME = "com.drl.brandis.geschichtswerkstatt.db";
+    static final int DB_VERSION = 12;
 
-    public class StoryEntry implements BaseColumns {
+    class StoryEntry implements BaseColumns {
 
-        public static final String TABLE = "stories";
+        static final String TABLE = "stories";
 
-        public static final String COL_TITLE = "title";
-        public static final String COL_TEXT = "text";
-        public static final String COL_DATE = "date";
-        public static final String COL_LOCATION_LONG = "loc_long";
-        public static final String COL_LOCATION_LAT = "loc_lang";
-        public static final String COL_LOCATION_NAME = "loc_name";
+        static final String COL_TITLE = "title";
+        static final String COL_TEXT = "text";
+        static final String COL_DATE = "date";
+        static final String COL_LOCATION_LONG = "loc_long";
+        static final String COL_LOCATION_LAT = "loc_lang";
+        static final String COL_LOCATION_NAME = "loc_name";
 
-        public static final String COL_AUDIOFILE = "recording";
-        public static final String COL_IMAGE = "image";
+        static final String COL_AUDIOFILE = "recording";
+        static final String COL_IMAGE = "image";
     }
 
-    public static String createTableString() {
+    static String createTableString() {
 
         return "CREATE TABLE " + StoryEntry.TABLE + " ( " +
                 StoryEntry._ID + " INTEGER PRIMARY KEY AUTOINCREMENT, " +

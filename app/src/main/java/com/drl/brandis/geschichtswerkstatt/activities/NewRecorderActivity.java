@@ -45,11 +45,10 @@ public class NewRecorderActivity extends BaseActivity {
 
     PowerManager.WakeLock wakeLock;
 
-    private boolean deletedStory = false;
 
     private StoryDatabase database;
 
-    public enum RecorderState {
+    private enum RecorderState {
         INIT, RECORDING, STOPPED
     }
 
@@ -62,17 +61,19 @@ public class NewRecorderActivity extends BaseActivity {
         if (getResources().getBoolean(R.bool.portrait_only))
             setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
 
+        // Gets the story data if it was passed from previous activity, otherwise creates new one
         if (getIntent().hasExtra("story"))
             story = (Story) getIntent().getSerializableExtra("story");
         else
             story = new Story();
 
-
+        //Permission requst to record audio
         if (ContextCompat.checkSelfPermission(this,
                 Manifest.permission.RECORD_AUDIO) != PackageManager.PERMISSION_GRANTED) {
             ActivityCompat.requestPermissions(this, PERMISSIONS_AUDIO_RECORD, REQUEST_AUDIO_RECORD);
         }
 
+        // initialization of adjustable screen element
         timerView = (TextView) findViewById(R.id.elapsed_time);
         waveformView = (WaveformView) findViewById(R.id.waveform_view);
         progressBar = (ProgressBar) findViewById(R.id.progressBar);
@@ -203,6 +204,7 @@ public class NewRecorderActivity extends BaseActivity {
 
     private void updateUi() {
 
+        // initialization of elements to prevent cancelling actions during recording
         TextView textView = (TextView) findViewById(R.id.text_view);
         View saveButton = findViewById(R.id.save_button);
         View cancelButton = findViewById(R.id.zuruck_button);
@@ -210,7 +212,7 @@ public class NewRecorderActivity extends BaseActivity {
         ToggleButton recordButton = (ToggleButton) findViewById(R.id.record_button);
 
         if (state == RecorderState.RECORDING) {
-            textView.setText("Aufnahme stoppen");
+            textView.setText(R.string.rec_stop);
             saveButton.setAlpha(.5f);
             saveButton.setClickable(false);
 
@@ -218,7 +220,7 @@ public class NewRecorderActivity extends BaseActivity {
 
             recordButton.setChecked(true);
         } else if (state == RecorderState.STOPPED) {
-            textView.setText("Aufnahme fortsetzen");
+            textView.setText(R.string.rec_continue);
 
             saveButton.setAlpha(1.0f);
             saveButton.setClickable(true);
@@ -228,7 +230,7 @@ public class NewRecorderActivity extends BaseActivity {
             recordButton.setChecked(false);
             waveformView.clearAudioData();
         } else {
-            textView.setText("Aufnahme starten");
+            textView.setText(R.string.rec_start);
             progressBar.setProgress(0);
             timerView.setText(convertTimeString(0));
 
@@ -267,8 +269,8 @@ public class NewRecorderActivity extends BaseActivity {
 
 
     public void onZuruckButtonClicked(View view) {
-        // what to do if cancel from first screen
 
+        // save only if story validates - has recording and title
         saveStory();
 
         Intent intent = new Intent(this, MainActivity.class);

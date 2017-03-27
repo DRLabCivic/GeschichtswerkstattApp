@@ -37,7 +37,7 @@
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="ORT"
+                    android:text="@string/place"
                     style="@style/headerText"/>
 
 
@@ -56,7 +56,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_below="@id/place"
-                android:text="Kein Ort ausgewählt"
+                android:text="@string/no_place_chosen"
                 android:layout_margin="@dimen/spacing"
                 style="@style/normalText"/>
 
@@ -65,7 +65,7 @@
                 android:layout_height="wrap_content"
                 android:layout_margin="@dimen/spacing"
                 android:layout_below="@id/location_text"
-                android:text="Ort auswählen"
+                android:text="@string/choose_place"
                 android:onClick="onLocationButtonClicked"
                 style="@style/textButtonStyle"/>
 
@@ -92,7 +92,7 @@
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="JAHR"
+                    android:text="@string/year"
                     android:labelFor="@+id/year_text"
                     style="@style/headerText"/>
 
@@ -111,7 +111,7 @@
                 android:id="@id/year_text"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:hint="Kein Jahr ausgewählt"
+                android:hint="@string/no_year_chosen"
                 android:layout_below="@id/year_frame"
                 android:layout_margin="@dimen/spacing"
                 android:maxLength="4"
@@ -121,11 +121,6 @@
         </RelativeLayout>
 
     </RelativeLayout>
-
-
-
-
-
 
 
 
@@ -141,7 +136,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="Zurück"
+            android:text="@string/back"
             android:layout_marginEnd="@dimen/small_margin"
 
             android:background="@color/colorButtonDark"
@@ -155,7 +150,7 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:layout_marginStart="@dimen/small_margin"
-            android:text="Weiter"
+            android:text="@string/next"
             android:onClick="onSaveButtonClicked"
             android:background="@color/colorDone"
             style="@style/textButtonStyle"/>

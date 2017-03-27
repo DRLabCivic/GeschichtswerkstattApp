@@ -122,15 +122,15 @@ public class Utils {
 
     public static int getMaxAbs(short[] array) {
         int max = 0;
-        for (int i=0;i<array.length; i++ ) {
-            if (Math.abs(array[i]) > max)
-                max = Math.abs(array[i]);
+        for (short anArray : array) {
+            if (Math.abs(anArray) > max)
+                max = Math.abs(anArray);
         }
         return max;
     }
 
 
-        public static final int MY_PERMISSIONS_REQUEST_READ_EXTERNAL_STORAGE = 123;
+    private  static final int MY_PERMISSIONS_REQUEST_READ_EXTERNAL_STORAGE = 123;
 
         @TargetApi(Build.VERSION_CODES.JELLY_BEAN)
         public static boolean checkPermission(final Context context)

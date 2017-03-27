@@ -62,8 +62,8 @@ public class StoryDatabase extends SQLiteOpenHelper {
 
     public synchronized Cursor getAllStories(SQLiteDatabase db) {
 
-        Cursor cursor = db.rawQuery("SELECT * FROM "+ StoryContract.StoryEntry.TABLE, null);
-        return cursor;
+        return db.rawQuery("SELECT * FROM "+ StoryContract.StoryEntry.TABLE, null);
+
     }
 
     public synchronized boolean checkIfExists(SQLiteDatabase db, long id) {
@@ -73,6 +73,10 @@ public class StoryDatabase extends SQLiteOpenHelper {
                 " WHERE "+ StoryContract.StoryEntry._ID + "=" + Long.toString(id), null);
 
         boolean ret = ((cursor != null) && (cursor.getCount() > 0)) ? true : false;
+
+        if (cursor != null) {
+            cursor.close();
+        }
 
         return ret;
     }

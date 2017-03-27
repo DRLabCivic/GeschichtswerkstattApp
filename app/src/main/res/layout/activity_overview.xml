@@ -15,7 +15,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:id="@+id/storyEditing"
-        />
+        android:orientation="horizontal" />
 
 
 
@@ -41,7 +41,7 @@
             <Button
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
-                android:text="Zurück"
+                android:text="@string/back"
                 android:layout_marginEnd="@dimen/small_margin"
 
                 android:background="@color/colorButtonDark"
@@ -52,7 +52,7 @@
             <Button
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
-                android:text="Übertragen"
+                android:text="@string/upload"
                 android:layout_marginStart="@dimen/small_margin"
 
                 android:onClick="onUploadButtonClicked"
@@ -82,14 +82,15 @@
 
                 <LinearLayout
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content">
+                    android:layout_height="wrap_content"
+                    android:baselineAligned="false">
 
                     <RelativeLayout
                         android:layout_width="0dp"
                         android:layout_weight="2"
                         android:layout_height="wrap_content"
                         android:id="@+id/beschreibung"
-                        android:layout_gravity="left"
+                        android:layout_gravity="start"
                         >
 
                         <EditText
@@ -102,7 +103,7 @@
                             android:layout_marginBottom="@dimen/spacing"
                             android:maxLines="1"
                             android:maxLength="64"
-                            android:hint="Titel"
+                            android:hint="@string/title"
                             />
 
                         <EditText
@@ -113,7 +114,7 @@
                             android:layout_marginEnd="@dimen/spacing"
                             android:layout_marginBottom="@dimen/spacing"
                             android:maxLines="8"
-                            android:hint="Beschreibung"
+                            android:hint="@string/description"
                             android:background="@drawable/rectangle"
                             android:layout_below="@+id/edit_text_title"
                             />
@@ -131,15 +132,14 @@
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_below="@id/beschreibung"
                     android:id="@+id/details"
-                    >
+                    android:baselineAligned="false">
 
                     <RelativeLayout
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="2"
-                        android:layout_marginLeft="8dp"
+                        android:layout_marginStart="8dp"
 
                         android:layout_gravity="center">
 
@@ -163,7 +163,8 @@
                                     android:layout_height="30dp"
                                     android:src="@drawable/audio"
                                     android:onClick="onRecordButtonClicked"
-                                    android:id="@+id/imageView" />
+                                    android:id="@+id/imageView"
+                                    android:contentDescription="@string/mic_icon" />
 
                             </LinearLayout>
 
@@ -180,8 +181,8 @@
                                 android:maxLines="1"
                                 android:onClick="onRecordButtonClicked"
 
-                                android:gravity="left"
-                                android:text="Keine Aufnahme"
+                                android:gravity="start"
+                                android:text="@string/no_record"
                                 style="@style/smallTextStyle"
                                 />
 
@@ -198,7 +199,7 @@
                                 android:src="@drawable/play"
                                 android:onClick="onPlay"
                                 android:id="@+id/audio"
-                                />
+                                android:contentDescription="@string/play_icon" />
 
                         </LinearLayout>
 
@@ -227,7 +228,8 @@
                                 android:layout_height="30dp"
 
                                 android:src="@drawable/location"
-                                android:id="@+id/imageView2" />
+                                android:id="@+id/imageView2"
+                                android:contentDescription="@string/place_markup_icon" />
 
 
                         </LinearLayout>
@@ -239,7 +241,7 @@
                                 android:layout_height="wrap_content"
                                 android:layout_margin="8dp"
 
-                                android:text="Kein Ort ausgewählt"
+                                android:text="@string/no_place_chosen"
                                 style="@style/smallTextStyle"
                                 />
 
@@ -250,7 +252,7 @@
                             android:layout_height="wrap_content"
                             android:gravity="center"
                             android:layout_below="@id/location"
-                            >
+                            android:baselineAligned="false">
 
                         <LinearLayout
                             android:layout_width="0dp"
@@ -263,7 +265,7 @@
                                 android:layout_width="30dp"
                                 android:layout_height="30dp"
                                 android:src="@drawable/calendar"
-                                />
+                                android:contentDescription="@string/calender_icon" />
 
                             </LinearLayout>
 
@@ -281,7 +283,7 @@
                                     android:maxLength="4"
                                     android:inputType="number"
                                     android:background="@drawable/rectangle"
-                                    android:hint="Jahr"
+                                    android:hint="@string/year"
 
                                     style="@style/smallTextStyle" />
 
@@ -325,7 +327,7 @@
                 android:padding="8dp"
                 android:layout_weight="1"
                 android:background="@drawable/rectangle"
-                android:contentDescription="picture for the story"
+                android:contentDescription="@string/picture_for_the_story"
                 android:onClick="onImageButtonClicked"
                 />
 

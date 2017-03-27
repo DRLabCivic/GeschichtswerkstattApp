@@ -54,7 +54,7 @@ public class PictureActivity extends BaseActivity {
         if (getResources().getBoolean(R.bool.portrait_only))
             setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
 
-//        // request permissions
+//        // try uncommenting this if expirience problems with permissions on older devices
 //        if (ContextCompat.checkSelfPermission(this,
 //                Manifest.permission.WRITE_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {
 //            ActivityCompat.requestPermissions(this, PERMISSIONS_STORY, REQUEST_STORY_PERMISSIONS);
@@ -81,6 +81,8 @@ public class PictureActivity extends BaseActivity {
 
     }
 
+
+    //Display image editing options(take from camera, choose from gallery, delete existing, or cancel dialog)
     public void onImageButtonClicked(View view) {
 
         final CharSequence[] items = { "Foto Aufnehmen", "Ein Bild aus Galerie auswählen", "Bild Löschen",
@@ -145,12 +147,6 @@ public class PictureActivity extends BaseActivity {
         startActivity(intent);
     }
 
-//    public void onSaveButtonClicked(View view) {
-//        Intent intent = new Intent(getApplicationContext(), OverviewActivity.class);
-//        intent.putExtra("story", this.story);
-//
-//        startActivity(intent);
-//    }
 
     public void onSkipButtonClicked(View view) {
         Intent intent = new Intent(getApplicationContext(), OverviewActivity.class);
@@ -171,19 +167,13 @@ public class PictureActivity extends BaseActivity {
                 if (imageFile.exists()) {
                     story.imageFile = imageFile.getAbsolutePath();
                 }
-                //saveStory();
-                //updateUi();
                 goToOverview();
 
             } else if (requestCode == REQUEST_IMAGE_CHOISE_CODE) {
 
                 Uri selectedImage = data.getData();
+                story.imageFile = getFilePath(this, selectedImage);
 
-                String path = getFilePath(this, selectedImage);
-
-                story.imageFile = path;
-
-               // updateUi();
                 goToOverview();
 
 
@@ -205,7 +195,7 @@ public class PictureActivity extends BaseActivity {
     }
 
 
-
+    //Getting filepath for different systemversions taken from stackoverflow
     @SuppressLint("NewApi")
     public static String getFilePath(Context context, Uri uri) {
         String selection = null;
@@ -279,6 +269,7 @@ public class PictureActivity extends BaseActivity {
 
     protected void updateUi() {
 
+        //get rid of additional info, once picture is taken
         if (story.imageFile!=null){
             findViewById(R.id.image_icon).setVisibility(View.GONE);
             findViewById(R.id.image_text).setVisibility(View.GONE);
@@ -290,7 +281,9 @@ public class PictureActivity extends BaseActivity {
         }
 
 
-
+        final int halfwidth = pictureView.getWidth()/2;
+        final int halfheight = pictureView.getHeight()/2;
+        // Asyncronous bitmap posting
         AsyncTask task = new AsyncTask<Object, Void, Bitmap>() {
 
             @Override
@@ -301,7 +294,7 @@ public class PictureActivity extends BaseActivity {
 
                     Bitmap scaledBmp = null;
                     try {
-                        scaledBmp = Utils.scaleBitmap(bmp, pictureView.getWidth()/2, pictureView.getHeight()/2, story.imageFile);
+                        scaledBmp = Utils.scaleBitmap(bmp, halfwidth, halfheight, story.imageFile);
                     } catch (IOException e) {
                         e.printStackTrace();
                     }
@@ -323,7 +316,7 @@ public class PictureActivity extends BaseActivity {
 
 
 
-
+    //taking picture from internal camera
     private void cameraIntent()
     {
         // Create the File where the photo should go
@@ -342,6 +335,7 @@ public class PictureActivity extends BaseActivity {
         }
     }
 
+    //choosing picturefrom device gallery
     private void galleryIntent()
     {
             Intent intent = new Intent();

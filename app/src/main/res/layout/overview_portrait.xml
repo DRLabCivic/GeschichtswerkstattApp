@@ -41,7 +41,7 @@
             <Button
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
-                android:text="Zurück"
+                android:text="@string/back"
                 android:background="@color/colorButtonDark"
                 android:onClick="onZuruckButtonClicked"
                 android:layout_marginEnd="@dimen/small_margin"
@@ -52,7 +52,7 @@
             <Button
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
-                android:text="Übertragen"
+                android:text="@string/upload"
                 android:layout_marginStart="@dimen/small_margin"
 
                 android:onClick="onUploadButtonClicked"
@@ -78,7 +78,8 @@
 
                 <LinearLayout
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content">
+                    android:layout_height="wrap_content"
+                    android:baselineAligned="false">
 
                 <LinearLayout
                     android:layout_width="0dp"
@@ -100,7 +101,7 @@
                         android:padding="8dp"
                         android:layout_weight="1"
                         android:background="@drawable/rectangle"
-                        android:contentDescription="picture for the story"
+                        android:contentDescription="@string/picture_for_the_story"
                         android:onClick="onImageButtonClicked"
                         />
 
@@ -112,7 +113,8 @@
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="2"
-                    android:layout_gravity="center">
+                    android:layout_gravity="center"
+                    android:baselineAligned="false">
 
                     <RelativeLayout
                         android:layout_width="0dp"
@@ -132,7 +134,7 @@
                             android:layout_marginBottom="8dp"
                             android:maxLines="1"
                             android:maxLength="64"
-                            android:hint="Titel"
+                            android:hint="@string/title"
                             />
 
                         <EditText
@@ -145,7 +147,7 @@
                             android:layout_marginBottom="8dp"
                             android:layout_below="@id/edit_text_title"
                             android:maxLines="8"
-                            android:hint="Beschreibung"
+                            android:hint="@string/description"
                             android:background="@drawable/rectangle"
                             />
 
@@ -164,9 +166,8 @@
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_below="@id/beschreibung"
                     android:id="@+id/details"
-                    >
+                    android:baselineAligned="false">
 
                     <RelativeLayout
                         android:layout_width="0dp"
@@ -191,7 +192,7 @@
                                 android:layout_marginTop="@dimen/spacing"
                                 android:layout_marginBottom="@dimen/spacing"
 
-                                />
+                                android:contentDescription="@string/mic_icon" />
 
                             <TextView
                                 android:id="@+id/recording_text"
@@ -200,7 +201,7 @@
                                 android:layout_height="wrap_content"
                                 android:layout_margin="8dp"
                                 android:layout_gravity="center"
-                                android:text="Keine Aufnahme"
+                                android:text="@string/no_record"
                                 style="@style/smallTextStyle"
                                 />
 
@@ -208,13 +209,13 @@
                                 android:layout_marginEnd="@dimen/spacing"
                                 android:layout_marginTop="@dimen/spacing"
                                 android:layout_marginBottom="@dimen/spacing"
-                            android:layout_width="30dp"
-                            android:layout_height="30dp"
-                            android:src="@drawable/play"
-                            android:layout_gravity="center"
-                            android:onClick="onPlay"
+                                android:layout_width="30dp"
+                                android:layout_height="30dp"
+                                android:src="@drawable/play"
+                                android:layout_gravity="center"
+                                android:onClick="onPlay"
                                 android:id="@+id/audio"
-                            />
+                                android:contentDescription="@string/play_icon" />
 
 
 
@@ -237,7 +238,7 @@
                                 android:layout_marginStart="@dimen/spacing"
                                 android:layout_marginTop="@dimen/spacing"
                                 android:layout_marginBottom="@dimen/spacing"
-                                />
+                                android:contentDescription="@string/place_markup_icon" />
 
 
                             <TextView
@@ -245,7 +246,7 @@
                                 android:layout_width="0dp"
                                 android:layout_weight="5"
                                 android:layout_height="wrap_content"
-                                android:text="Kein Ort ausgewählt"
+                                android:text="@string/no_place_chosen"
                                 android:layout_gravity="center"
                                 style="@style/smallTextStyle"
                                 android:layout_margin="8dp"
@@ -268,7 +269,7 @@
                                 android:layout_marginStart="@dimen/spacing"
                                 android:layout_marginTop="@dimen/spacing"
                                 android:layout_marginBottom="@dimen/spacing"
-                                />
+                                android:contentDescription="@string/calender_icon" />
 
 
                             <EditText
@@ -281,7 +282,7 @@
                                 android:layout_margin="8dp"
                                 android:layout_gravity="center"
                                 android:background="@drawable/rectangle"
-                                android:hint="Kein Jahr ausgewählt"
+                                android:hint="@string/no_year_chosen"
                                 style="@style/smallTextStyle" />
 
                         </LinearLayout>

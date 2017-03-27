@@ -59,19 +59,17 @@ public class OrtAuswahlActivity extends BaseActivity {
         if (story.date.length() > 0)
             yearEd.setText(story.date);
 
+        //Listener for storyYear field
         yearEd.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-
             }
 
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
                     story.date = s.toString();
                     updateUi();
-
             }
-
             @Override
             public void afterTextChanged(Editable s) {
             }
@@ -90,6 +88,7 @@ public class OrtAuswahlActivity extends BaseActivity {
         //hide Spinner
         hideOverlay();
 
+        //Handling results of Google API PlacePicker
         if (requestCode == PLACE_PICKER_REQUEST_CODE
                 && resultCode == Activity.RESULT_OK) {
 
@@ -104,7 +103,6 @@ public class OrtAuswahlActivity extends BaseActivity {
             if (story.loc_name.isEmpty())
                 story.loc_name = "Unbekannte Adresse";
 
-            //saveStory();
             updateUi();
         }
     }
@@ -126,7 +124,7 @@ public class OrtAuswahlActivity extends BaseActivity {
 
         View saveButton = findViewById(R.id.save_button);
 
-        //not active by default
+        // button not active by default
         saveButton.setAlpha(.5f);
         saveButton.setClickable(false);
         ((CheckBox)findViewById(R.id.check_year)).setChecked(false);
@@ -136,23 +134,20 @@ public class OrtAuswahlActivity extends BaseActivity {
             locationText.setText(story.loc_name);
             ((CheckBox)findViewById(R.id.check_place)).setChecked(true);
 
-            //active if location is not null
+            //active туче игеещт if location is not null
             saveButton.setAlpha(1.f);
             saveButton.setClickable(true);
 
         }
 
+        // chaeck year and activate next button if it is valid, otherwise display error message(toast)
         if (story.date.length() > 0) {
 
             if (Integer.parseInt(story.date) > Calendar.getInstance().get(Calendar.YEAR)) {
                     Toast toast = Toast.makeText(getApplicationContext(), "Falsches Jahresangabe", Toast.LENGTH_LONG);
                     toast.setGravity(Gravity.CENTER, 0, 0);
                     toast.show();
-
-
             } else {
-
-
                 ((CheckBox) findViewById(R.id.check_year)).setChecked(true);
 
                 //active if date is set to anything
@@ -174,10 +169,7 @@ public class OrtAuswahlActivity extends BaseActivity {
     public void onSaveButtonClicked(View view) {
         Intent intent = new Intent(getApplicationContext(), PictureActivity.class);
         intent.putExtra("story", this.story);
-
         startActivity(intent);
-
-
     }
 
 
@@ -187,6 +179,7 @@ public class OrtAuswahlActivity extends BaseActivity {
 
         showOverlay("Loading Map", mainLayout);
 
+        // Strat google maps Place Picker
         PlacePicker.IntentBuilder builder = new PlacePicker.IntentBuilder();
         try {
             startActivityForResult(builder.build(this), PLACE_PICKER_REQUEST_CODE);

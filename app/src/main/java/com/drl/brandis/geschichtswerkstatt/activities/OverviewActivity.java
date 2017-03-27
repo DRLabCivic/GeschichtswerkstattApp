@@ -46,9 +46,9 @@ import java.util.Calendar;
 
 public class OverviewActivity extends BaseActivity {
 
-    private static final String LOG_TAG = "StoryActivity";
-
-    public static final String PICTURE_FILES_DIRECTORY = "Stories";
+    //Not used in final version
+    //private static final String LOG_TAG = "StoryActivity";
+    //public static final String PICTURE_FILES_DIRECTORY = "Stories";
 
     private static final int PLACE_PICKER_REQUEST_CODE = 2;
 
@@ -71,7 +71,6 @@ public class OverviewActivity extends BaseActivity {
 
     ViewGroup mainLayout;
 
-    public File imageFile;
 
     int devHei,devWidt;
 
@@ -79,10 +78,14 @@ public class OverviewActivity extends BaseActivity {
 
     private StoryDatabase database;
 
+    MediaPlayer mp;
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
+        //Restrict to portrait on smaller screens and display another layout for them
         if (getResources().getBoolean(R.bool.portrait_only)){
             setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
             setContentView(R.layout.overview_portrait);
@@ -90,7 +93,7 @@ public class OverviewActivity extends BaseActivity {
             setContentView(R.layout.activity_overview);
         }
 
-
+        //Retrieve storydata
         Intent i = getIntent();
         story = (Story)i.getSerializableExtra("story");
 
@@ -98,42 +101,39 @@ public class OverviewActivity extends BaseActivity {
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-        //getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-
+        // Getting device measurments to adapt view for smaller screns
         DisplayMetrics dm = getApplicationContext().getResources().getDisplayMetrics();
-
         devHei = dm.heightPixels / 4;
         devWidt = dm.widthPixels / 3;
 
-
+        //Story title in support bar
         if (story._id > 0)
-            getSupportActionBar().setTitle("Geschichte #" + story._id);
+            getSupportActionBar().setTitle(getString(R.string.Geschichte) + story.title);
         else
-            getSupportActionBar().setTitle("Neue Geschichte");
+            getSupportActionBar().setTitle(R.string.Neue_Geschichte);
 
         mainLayout = (ViewGroup) findViewById(R.id.main_layout);
 
+        // Initialization of fields to edit
         titleEdit = (EditText) findViewById(R.id.edit_text_title);
         textEdit = (EditText) findViewById(R.id.edit_text_text);
         locationText = (TextView) findViewById(R.id.location_text);
         yearText = (EditText) findViewById(R.id.year_text);
-
+        recordingText = (TextView) findViewById(R.id.recording_text);
         pictureView = (ImageView) findViewById(R.id.picture_view);
         audio = (ImageView) findViewById(R.id.audio);
 
+        //restrict picture size
         maxPicSize = pictureView.getWidth();
 
-        recordingText = (TextView) findViewById(R.id.recording_text);
 
         database = new StoryDatabase(getApplicationContext());
 
+        //creaitig Media Player instance
+        mp = MediaPlayer.create(getApplicationContext(), Uri.fromFile(new File(story.audioFile)));
+
+
         setupUI(findViewById(R.id.main_layout));
-
-
-
-
-
-
 
         updateUi();
     }
@@ -147,7 +147,6 @@ public class OverviewActivity extends BaseActivity {
 
 
     public void onPlay(View view) throws IOException {
-        MediaPlayer mp = MediaPlayer.create(getApplicationContext(), Uri.fromFile(new File(story.audioFile)));
 
 
         if (!playing){
@@ -162,6 +161,7 @@ public class OverviewActivity extends BaseActivity {
         }
         else {
             mp.stop();
+            mp.prepare();
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
                 audio.setImageDrawable(getResources().getDrawable(R.drawable.play, getApplicationContext().getTheme()));
             } else {
@@ -488,7 +488,7 @@ public class OverviewActivity extends BaseActivity {
 
     public void setupUI(View view) {
 
-        //pictureView.getLayoutParams().height = devHei;
+        // force reload layout
         pictureView.requestLayout();
 
         // Set up touch listener for non-text box views to hide keyboard.

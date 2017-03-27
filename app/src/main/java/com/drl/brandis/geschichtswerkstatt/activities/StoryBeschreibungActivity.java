@@ -38,7 +38,6 @@ public class StoryBeschreibungActivity extends BaseActivity {
 
     private boolean deletedStory = false;
 
-//    private StoryDatabase database;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -56,13 +55,11 @@ public class StoryBeschreibungActivity extends BaseActivity {
             ActivityCompat.requestPermissions(this, PERMISSIONS_STORY, REQUEST_STORY_PERMISSIONS);
         }
 
-        // setup action bar
-
+        // request storydata
         if (getIntent().hasExtra("story"))
             story = (Story) getIntent().getSerializableExtra("story");
         else
             story = new Story();
-
 
         mainLayout = (ViewGroup) findViewById(R.id.main_layout);
 
@@ -70,7 +67,18 @@ public class StoryBeschreibungActivity extends BaseActivity {
         textEdit = (TextView) findViewById(R.id.edit_text_text);
 
 
-  //      database = new StoryDatabase(getApplicationContext());
+        titleEdit.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {}
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                updateCheckmarks();
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {}
+        });
 
         updateUi();
     }
@@ -95,24 +103,6 @@ public class StoryBeschreibungActivity extends BaseActivity {
         textEdit.setText(story.text);
 
 
-
-        titleEdit.addTextChangedListener(new TextWatcher() {
-            @Override
-            public void beforeTextChanged(CharSequence s, int start, int count, int after) {}
-
-            @Override
-            public void onTextChanged(CharSequence s, int start, int before, int count) {
-                updateCheckmarks();
-            }
-
-            @Override
-            public void afterTextChanged(Editable s) {}
-        });
-
-
-
-
-
         updateCheckmarks();
 
     }
@@ -121,6 +111,7 @@ public class StoryBeschreibungActivity extends BaseActivity {
 
         View saveButton = findViewById(R.id.nextw);
 
+        //set checkbox if valid title and make next button active
         boolean isTextSet = titleEdit.getText().length() > 3;
         ((CheckBox)findViewById(R.id.check_text)).setChecked(isTextSet);
         if (isTextSet) {
@@ -139,6 +130,9 @@ public class StoryBeschreibungActivity extends BaseActivity {
 
     public void saveStory() {
 
+        if (story.isEmpty())
+            return;
+
         // get values
         if (titleEdit.getText().length() > 0)
             story.title = titleEdit.getText().toString();
@@ -150,12 +144,9 @@ public class StoryBeschreibungActivity extends BaseActivity {
         else
             story.text = null;
 
-        if (story.isEmpty())
-            return;
 
-        // add to database
-//        Long id = database.upsertStory(database.getWritableDatabase(), story);
-//        database.close();
+
+
     }
 
     public void onWeiterButtonClicked(View view) {
@@ -179,7 +170,7 @@ public class StoryBeschreibungActivity extends BaseActivity {
 
 
 
-
+    // hiding software keyboard
     public static void hideSoftKeyboard(Activity activity) {
         InputMethodManager inputMethodManager =
                 (InputMethodManager) activity.getSystemService(Activity.INPUT_METHOD_SERVICE);

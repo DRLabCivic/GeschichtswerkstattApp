@@ -6,11 +6,7 @@
     tools:context="com.drl.brandis.geschichtswerkstatt.activities.StoryBeschreibungActivity"
     android:background="@color/colorBackground"
     style="@style/mainLayoutStyle"
-    android:keepScreenOn="true"
-    >
-
-
-
+    android:keepScreenOn="true">
 
 
             <!-- Dummy item to prevent EditText from receiving focus -->
@@ -20,7 +16,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:id="@+id/storyEditing"
-        />
+        android:orientation="horizontal" />
 
         <RelativeLayout
             android:layout_width="match_parent"
@@ -31,7 +27,8 @@
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="BESCHREIBUNG"
+                android:text="@string/description"
+                android:textAllCaps="true"
                 style="@style/headerText"/>
 
             <CheckBox
@@ -52,11 +49,12 @@
             android:layout_marginRight="@dimen/spacing"
             android:layout_marginLeft="@dimen/spacing"
             android:layout_marginTop="@dimen/spacing"
-            android:paddingLeft="10dp"
+            android:paddingStart="10dp"
+            android:paddingEnd="10dp"
             style="@style/normalText"
             android:maxLines="2"
             android:maxLength="64"
-            android:hint="Titel"/>
+            android:hint="@string/title"/>
 
         <EditText
             android:id="@+id/edit_text_text"
@@ -69,7 +67,7 @@
             android:layout_marginBottom="@dimen/spacing"
             android:maxLines="8"
             android:minLines="3"
-            android:hint="Beschreibung"
+            android:hint="@string/description"
             style="@style/normalText"
             android:background="@drawable/rectangle"
 
@@ -86,7 +84,7 @@
             android:layout_height="wrap_content"
             android:onClick="onBackButtonClicked"
             android:layout_weight="1"
-            android:text="Zurück"
+            android:text="@string/back"
             android:layout_marginEnd="@dimen/small_margin"
 
             android:background="@color/colorButtonDark"
@@ -99,7 +97,7 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="Weiter"
+            android:text="@string/next"
             android:layout_marginStart="@dimen/small_margin"
 
             android:id="@+id/nextw"

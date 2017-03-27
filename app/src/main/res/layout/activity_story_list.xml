@@ -19,7 +19,8 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@+id/toolbar"
-        android:text="ENTWÜRFE"
+        android:text="@string/drafts"
+        android:textAllCaps="true"
         style="@style/headerText"/>
 
     <Button
@@ -27,7 +28,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
-        android:text="Neue Geschichte"
+        android:text="@string/new_story"
         android:background="@color/colorButtonDark"
         android:onClick="onFabButtonClicked"
         style="@style/textButtonStyle"/>
@@ -37,7 +38,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_margin="@dimen/spacing"
-        android:text="Klicke unten auf den Button um eine Geschichte aufzunehmen."
+        android:text="@string/click_to_start"
         android:layout_above="@id/fab"
         style="@style/descriptionText"/>
 

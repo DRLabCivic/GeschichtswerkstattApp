@@ -36,6 +36,8 @@ public class MainActivity extends BaseActivity {
 
 
     public void setupUI(){
+
+        // Programmatically changes size of the logo to half of the scree size
         DisplayMetrics dm = getApplicationContext().getResources().getDisplayMetrics();
 
         logo.getLayoutParams().height = dm.heightPixels / 2;

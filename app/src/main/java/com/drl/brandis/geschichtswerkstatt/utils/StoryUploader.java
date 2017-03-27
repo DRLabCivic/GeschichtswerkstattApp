@@ -25,11 +25,11 @@ import retrofit2.http.Part;
 public class StoryUploader {
 
     //public static final String API_BASE_URL = "http://192.168.1.5:8081";
-    public static final String API_BASE_URL = "http://geschichtswerkstatt.brandis.eu/wp-admin/";
+    private static final String API_BASE_URL = "http://geschichtswerkstatt.brandis.eu/wp-admin/";
 
-    public static final String API_DATE_FORMAT = "yyyy-MM-dd";
+    private  static final String API_DATE_FORMAT = "yyyy-MM-dd";
 
-    public static class ServiceGenerator {
+    private  static class ServiceGenerator {
 
         private static OkHttpClient.Builder httpClient = new OkHttpClient.Builder();
 
@@ -38,13 +38,13 @@ public class StoryUploader {
                         .baseUrl(API_BASE_URL)
                         .addConverterFactory(GsonConverterFactory.create());
 
-        public static <S> S createService(Class<S> serviceClass) {
+        static <S> S createService(Class<S> serviceClass) {
             Retrofit retrofit = builder.client(httpClient.build()).build();
             return retrofit.create(serviceClass);
         }
     }
 
-    public interface APIService {
+    interface APIService {
 
         @Multipart
         @POST("admin-ajax.php?action=api-call")
@@ -92,7 +92,7 @@ public class StoryUploader {
         return call;
     }
 
-    public static String formatDate(Date date) {
+    private  static String formatDate(Date date) {
 
         if (date == null)
             return "";
@@ -101,13 +101,13 @@ public class StoryUploader {
         return outputFormat.format(date);
     }
 
-    public static final String MULTIPART_FORM_DATA = "multipart/form-data";
+    private  static final String MULTIPART_FORM_DATA = "multipart/form-data";
 
-    public static RequestBody createPartFromString(String descriptionString) {
+    private  static RequestBody createPartFromString(String descriptionString) {
         return RequestBody.create(MediaType.parse(MULTIPART_FORM_DATA), descriptionString);
     }
 
-    public static MultipartBody.Part prepareFilePart(String partName, File file) {
+    private  static MultipartBody.Part prepareFilePart(String partName, File file) {
 
         // create RequestBody instance from file
         RequestBody requestFile = RequestBody.create(MediaType.parse(MULTIPART_FORM_DATA), file);

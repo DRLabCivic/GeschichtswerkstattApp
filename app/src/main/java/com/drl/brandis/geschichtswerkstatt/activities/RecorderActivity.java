@@ -1,3 +1,5 @@
+// Original
+
 //package com.drl.brandis.geschichtswerkstatt.activities;
 //
 //import android.Manifest;

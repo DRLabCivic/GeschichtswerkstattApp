@@ -34,7 +34,7 @@ public class ScannerActivity extends BaseActivity implements ZXingScannerView.Re
     TextView textView;
     String linkUrl;
 
-    public enum ScannerState {
+    private enum ScannerState {
         SCANNING, FOUND
     }
 
@@ -70,7 +70,7 @@ public class ScannerActivity extends BaseActivity implements ZXingScannerView.Re
             textView.setText(text);
         } else {
             findViewById(R.id.button_layout).setVisibility(View.GONE);
-            textView.setText("Zeige mit der Camera auf den QR Code");
+            textView.setText(R.string.QR_code_instruction);
         }
     }
 
@@ -151,7 +151,6 @@ public class ScannerActivity extends BaseActivity implements ZXingScannerView.Re
                 } else {
                     showAlert("Error","This app requires to take camera pictures", true);
                 }
-                return;
             }
         }
     }

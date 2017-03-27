@@ -28,7 +28,8 @@
             android:layout_height="match_parent"
             android:minHeight="120dp"
             android:adjustViewBounds="true"
-            android:scaleType="fitCenter"/>
+            android:scaleType="fitCenter"
+            android:contentDescription="@string/blank_image_view" />
 
 
         <ImageView
@@ -38,14 +39,15 @@
             android:onClick="onImageButtonClicked"
             android:layout_centerInParent="true"
             android:src="@drawable/camera"
-            android:padding="@dimen/padding"/>
+            android:padding="@dimen/padding"
+            android:contentDescription="@string/camera_icon" />
 
         <TextView
             android:paddingBottom="@dimen/spacing"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_below="@id/image_icon"
-            android:text="Bild aufnehmen"
+            android:text="@string/take_picture"
             style="@style/normalText"
             android:id="@+id/image_text"
             android:textAlignment="center"/>
@@ -67,7 +69,7 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:text="Zurück"
+                android:text="@string/back"
                 android:layout_marginEnd="@dimen/small_margin"
 
                 android:background="@color/colorButtonDark"
@@ -83,7 +85,7 @@
                 android:layout_marginEnd="@dimen/small_margin"
                 android:layout_marginStart="@dimen/small_margin"
 
-                android:text="Neue aufnahme"
+                android:text="@string/take_again"
                 android:onClick="onImageButtonClicked"
                 android:background="@color/colorDone"
                 style="@style/textButtonStyle"/>
@@ -93,7 +95,7 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:text="Überspringen"
+                android:text="@string/skip"
                 android:layout_marginStart="@dimen/small_margin"
 
                 android:background="@color/colorButtonDark"

@@ -27,7 +27,7 @@
             android:id="@+id/text_view"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="dummytext"
+            android:text="@string/dummytext"
             android:textAlignment="center"
             style="@style/whiteText"
             android:background="@color/black_overlay"
@@ -45,7 +45,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:text="Neu Scannen"
+                android:text="@string/scan_again"
                 android:layout_marginEnd="@dimen/small_margin"
 
                 android:onClick="onScanButtonClicked"
@@ -56,7 +56,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:text="Öffne Link"
+                android:text="@string/open_link"
                 android:layout_marginStart="@dimen/small_margin"
 
                 android:onClick="onLinkButtonClicked"

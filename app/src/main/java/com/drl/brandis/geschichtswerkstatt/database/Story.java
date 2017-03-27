@@ -15,7 +15,7 @@ import java.util.List;
  */
 public class Story implements Serializable {
 
-    public static final String DATE_FORMAT = "yyyy-MM-dd HH:mm:ss";
+    private static final String DATE_FORMAT = "yyyy-MM-dd HH:mm:ss";
 
     public long _id;
     public String title;
